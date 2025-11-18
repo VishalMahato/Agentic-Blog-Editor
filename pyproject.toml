@@ -1,0 +1,17 @@
+[project]
+name = "agentic-blog-editor"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi>=0.121.2",
+    "langchain>=1.0.7",
+    "langchain-community>=0.4.1",
+    "langchain-core>=1.0.5",
+    "langchain-groq>=1.0.1",
+    "langgraph>=1.0.3",
+    "langgraph-cli[inmem]>=0.4.7",
+    "uvicorn>=0.38.0",
+    "watchdog>=6.0.0",
+]
