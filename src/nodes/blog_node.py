@@ -1,3 +1,4 @@
+from src.states.blogstate import BlogState, LanguageMode
 from src.states.blogstate import BlogState
 
 
@@ -48,3 +49,44 @@ class BlogNode:
                     "title": state['blog']['title'],
                     "content": response.content
                 }}
+
+    def content_generator(self, state: BlogState) -> BlogState:
+
+        if "topic" not in state or not state["topic"]:
+            raise ValueError("topic is required in state to generate content")
+
+        topic = state["topic"]
+
+        mode = state.get("language_mode", LanguageMode.native)
+        state["language_mode"] = mode
+
+        target_language = state.get("language", "english")
+
+        if mode == LanguageMode.native:
+            language_for_blog = target_language
+        else:
+            language_for_blog = "english"
+
+        prompt = f"""
+        You are an expert blog content writer. Use Markdown formatting.
+        Generate a detailed blog content with a detailed breakdown for the topic: {topic}.
+        The desired length of the blog is around 1200 words.
+        The title should be creative and SEO friendly.
+
+        # Strict Rule
+        - The Language of the blog is {language_for_blog}
+        """.strip()
+
+   
+        response = self.llm.invoke(prompt)
+
+      
+        if "blog" not in state or state["blog"] is None:
+            from src.states.blogstate import Blog
+            state["blog"] = Blog(title="", content="")
+
+        state["blog"].content = response.content
+        return state
+    
+    
+    
