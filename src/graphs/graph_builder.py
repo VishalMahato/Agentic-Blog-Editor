@@ -30,4 +30,11 @@ class GraphBuilder:
         if usecase == "topic":
             self.build_topic_graph()
         return self.graph.compile()
-    
+
+
+#  below code is for lansmiuth langraph studio
+llm = GroqLLM().get_llm()
+
+# get the graph 
+graph_builder= GraphBuilder(llm)
+graph= graph_builder.setup_graph(usecase="topic".lower())
