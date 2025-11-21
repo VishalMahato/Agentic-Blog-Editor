@@ -20,12 +20,12 @@ class GraphBuilder:
 
         # Nodes
         graph.add_node("title_creation", blog_node_obj.title_creation)
-        graph.add_node("content_generation", blog_node_obj.content_generation)
+        graph.add_node("content_generator", blog_node_obj.content_generator)
 
         # Edges
         graph.add_edge(START, "title_creation")
-        graph.add_edge("title_creation", "content_generation")
-        graph.add_edge("content_generation", END)
+        graph.add_edge("title_creation", "content_generator")
+        graph.add_edge("content_generator", END)
 
         return graph.compile()
 
@@ -48,7 +48,7 @@ class GraphBuilder:
         graph.add_node("translation_router", blog_node_obj.translation_router)
 
 
-        graph.add_node("translater", blog_node_obj.translater)
+        graph.add_node("translation", blog_node_obj.translation)
 
         graph.add_edge(START, "title_creation")
         graph.add_edge("title_creation", "content_generator")
@@ -59,7 +59,7 @@ class GraphBuilder:
             "translation_router",                  
             blog_node_obj.translation_router,       
             {
-                "translater": "translater",          
+                "translation": "translation",          
                 END: END,                          
             },
         )
